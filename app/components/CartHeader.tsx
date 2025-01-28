@@ -4,9 +4,9 @@ import { RootState } from "../store/store";
 
 export default function CartHeader() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = cartItems.reduce((total, item) => total + (item.quantity ?? 0), 0);
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + item.price * (item.quantity ?? 0),
     0
   );
 

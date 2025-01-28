@@ -1,14 +1,8 @@
+import { Product } from '@/app/models/product.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface CartItem {
-  id: number;
-  title: string;
-  price: number;
-  quantity: number;
-}
-
 interface CartState {
-  items: CartItem[];
+  items: Product[];
 }
 
 const initialState: CartState = {
@@ -19,10 +13,14 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CartItem>) {
+    addToCart(state, action: PayloadAction<Product>) {
       const itemIndex = state.items.findIndex(item => item.id === action.payload.id);
       if (itemIndex >= 0) {
-        state.items[itemIndex].quantity += 1;
+        if (state.items[itemIndex].quantity) {
+          state.items[itemIndex].quantity += 1;
+        } else {
+          console.error('Item not found at index:', itemIndex);
+        }
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }

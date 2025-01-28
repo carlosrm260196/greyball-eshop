@@ -17,5 +17,6 @@ export default function ProductSearch({
       onChange={(e) => setSearchTerm(e.target.value)}
       className="border p-2 rounded w-full mb-4 text-black"
     />
+    
   );
 }
